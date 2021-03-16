@@ -8,6 +8,7 @@ import com.example.roomdatabase24112020.database.WordEntity;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 public class WordRespository {
@@ -27,6 +28,10 @@ public class WordRespository {
 
     public Single<List<WordEntity>> getWords(){
         return wordDao.getWords();
+    }
+
+    public Completable insertWord(WordEntity wordEntity){
+        return wordDao.insertWord(wordEntity);
     }
 
 }

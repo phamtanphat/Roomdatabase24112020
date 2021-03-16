@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.Person;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.roomdatabase24112020.R;
 import com.example.roomdatabase24112020.database.WordEntity;
@@ -25,6 +26,19 @@ public class MainActivity extends AppCompatActivity {
         wordViewModel = new ViewModelProvider(this).get(WordViewModel.class);
 
         //Observe data
+
+        // 1 : Insert thanh cong
+
+        wordViewModel.getStatusQuery().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                switch (integer){
+                    case 1 :
+                        Toast.makeText(MainActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
         wordViewModel.getWords().observe(this, new Observer<List<WordEntity>>() {
             @Override
             public void onChanged(List<WordEntity> wordEntities) {
@@ -41,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Call method
         wordViewModel.selectWords();
+//        wordViewModel.insertWord(new WordEntity("One","Một",false));
 
     }
 }

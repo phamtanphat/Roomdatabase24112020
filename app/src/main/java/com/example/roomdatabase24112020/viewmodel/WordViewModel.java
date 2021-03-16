@@ -13,6 +13,7 @@ import com.example.roomdatabase24112020.respository.WordRespository;
 
 import java.util.List;
 
+import io.reactivex.CompletableObserver;
 import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,12 +23,14 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WordViewModel extends AndroidViewModel {
     private MutableLiveData<List<WordEntity>> mutableWords;
+    private MutableLiveData<Integer> mutableStatusWords;
     private MutableLiveData<Throwable> mutableError;
     private WordRespository wordRespository;
 
     public WordViewModel(@androidx.annotation.NonNull Application application) {
         super(application);
         mutableWords = new MutableLiveData<>();
+        mutableStatusWords = new MutableLiveData<>();
         mutableError = new MutableLiveData<>();
         wordRespository = WordRespository.getInstance(application.getBaseContext());
     }
@@ -61,5 +64,31 @@ public class WordViewModel extends AndroidViewModel {
 
     public LiveData<Throwable> getError(){
         return mutableError;
+    }
+
+    public void insertWord(WordEntity wordEntity){
+        wordRespository.insertWord(wordEntity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mutableStatusWords.setValue(1);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        mutableError.setValue(e);
+                    }
+                });
+    }
+
+    public LiveData<Integer> getStatusQuery(){
+        return mutableStatusWords;
     }
 }
