@@ -1,7 +1,9 @@
 package com.example.roomdatabase24112020.viewmodel;
 
+import android.app.Application;
 import android.content.Context;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,16 +20,18 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class WordViewModel extends ViewModel {
+public class WordViewModel extends AndroidViewModel {
     private MutableLiveData<List<WordEntity>> mutableWords;
     private MutableLiveData<Throwable> mutableError;
     private WordRespository wordRespository;
 
-    public WordViewModel(Context context) {
+    public WordViewModel(@androidx.annotation.NonNull Application application) {
+        super(application);
         mutableWords = new MutableLiveData<>();
         mutableError = new MutableLiveData<>();
-        wordRespository = WordRespository.getInstance(context);
+        wordRespository = WordRespository.getInstance(application.getBaseContext());
     }
+
 
     public void selectWords(){
         wordRespository.getWords()
