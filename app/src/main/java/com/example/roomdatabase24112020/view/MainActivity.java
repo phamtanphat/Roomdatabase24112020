@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<WordEntity> wordEntities) {
                 for (int i = 0; i < wordEntities.size(); i++) {
-                    Log.d("BBB",wordEntities.get(i).getId() + "");
+                    Log.d("BBB",wordEntities.get(i).getEn() + "");
                 }
             }
         });
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Call method
-        wordViewModel.selectWords();
+        wordViewModel.selectWords(1 , 1);
 //        wordViewModel.insertWord(new WordEntity("Two","Hai",false));
 
 

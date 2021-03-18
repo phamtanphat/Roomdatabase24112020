@@ -27,8 +27,9 @@ public class WordRespository {
         return instance;
     }
 
-    public Single<List<WordEntity>> getWords(){
-        return wordDao.getWords();
+    public Single<List<WordEntity>> getWords(int page, int totalItems){
+        page = (page - 1) * totalItems;
+        return wordDao.getWords(page , totalItems);
     }
 
     public Completable insertWord(WordEntity wordEntity){

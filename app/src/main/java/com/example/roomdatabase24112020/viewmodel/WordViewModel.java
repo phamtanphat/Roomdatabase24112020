@@ -39,8 +39,8 @@ public class WordViewModel extends AndroidViewModel {
     }
 
 
-    public void selectWords(){
-        wordRespository.getWords()
+    public void selectWords(int page , int totalItems){
+        wordRespository.getWords(page , totalItems)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<WordEntity>>() {
