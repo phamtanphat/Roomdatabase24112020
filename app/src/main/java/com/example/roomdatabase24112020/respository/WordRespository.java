@@ -9,6 +9,7 @@ import com.example.roomdatabase24112020.database.WordEntity;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 public class WordRespository {
@@ -34,4 +35,7 @@ public class WordRespository {
         return wordDao.insertWord(wordEntity);
     }
 
+    public Maybe<Integer> updateWord(boolean isMemorized ,long id){
+        return wordDao.updateWord(isMemorized,id);
+    }
 }
