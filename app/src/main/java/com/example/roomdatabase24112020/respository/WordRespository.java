@@ -40,4 +40,8 @@ public class WordRespository {
     public Maybe<Integer> updateWord(boolean isMemorized ,long id){
         return wordDao.updateWord(isMemorized,id);
     }
+
+    public Maybe<Integer> deleteWord(long id){
+        return wordDao.deleteWord(id);
+    }
 }

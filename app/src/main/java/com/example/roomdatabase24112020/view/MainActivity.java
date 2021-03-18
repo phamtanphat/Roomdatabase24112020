@@ -31,28 +31,30 @@ public class MainActivity extends AppCompatActivity {
 
         // 1 : Insert thanh cong
 
-//        wordViewModel.getStatusQuery().observe(this, new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                switch (integer){
-//                    case DatabaseConstants.STATUS_INSERT_SUCCESS :
-//                        mMessage = "Thêm thành công";
-//                        break;
-//                    case DatabaseConstants.STATUS_UPDATE_SUCCESS :
-//                        mMessage = "Cập nhật thành công";
-//                        break;
-//                }
-//                Toast.makeText(MainActivity.this, mMessage, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-        wordViewModel.getWords().observe(this, new Observer<List<WordEntity>>() {
+        wordViewModel.getStatusQuery().observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(List<WordEntity> wordEntities) {
-                for (int i = 0; i < wordEntities.size(); i++) {
-                    Log.d("BBB",wordEntities.get(i).getEn() + "");
+            public void onChanged(Integer integer) {
+                switch (integer){
+                    case DatabaseConstants.STATUS_INSERT_SUCCESS :
+                        mMessage = "Thêm thành công";
+                        break;
+                    case DatabaseConstants.STATUS_UPDATE_SUCCESS :
+                        mMessage = "Cập nhật thành công";
+                        break;
+                    case DatabaseConstants.STATUS_DELETE_SUCCESS :
+                        mMessage = "Xóa dữ liệu thành công";
                 }
+                Toast.makeText(MainActivity.this, mMessage, Toast.LENGTH_SHORT).show();
             }
         });
+//        wordViewModel.getWords().observe(this, new Observer<List<WordEntity>>() {
+//            @Override
+//            public void onChanged(List<WordEntity> wordEntities) {
+//                for (int i = 0; i < wordEntities.size(); i++) {
+//                    Log.d("BBB",wordEntities.get(i).getEn() + "");
+//                }
+//            }
+//        });
 
         wordViewModel.getError().observe(this, new Observer<Throwable>() {
             @Override
@@ -62,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Call method
-        wordViewModel.selectWords(2 , 1);
+//        wordViewModel.selectWords(2 , 1);
 //        wordViewModel.insertWord(new WordEntity("Two","Hai",false));
-
+        wordViewModel.deleteWord(1);
 
 
 

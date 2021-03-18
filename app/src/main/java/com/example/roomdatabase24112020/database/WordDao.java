@@ -16,7 +16,7 @@ import io.reactivex.Single;
 public interface WordDao {
 
     // Get data
-    @Query("SELECT * FROM WordEntity ORDER BY id DESC LIMIT :rowCount , :totalItems ")
+    @Query("SELECT * FROM WordEntity ORDER BY id DESC LIMIT :rowCount , :totalItems")
     Single<List<WordEntity>> getWords(int rowCount , int totalItems);
 
     // Insert
@@ -26,5 +26,7 @@ public interface WordDao {
     @Query("UPDATE WordEntity SET isMemorized = :isMemorized WHERE id = :id")
     Maybe<Integer> updateWord(boolean isMemorized ,long id);
 
+    @Query("DELETE FROM WordEntity WHERE id = :id")
+    Maybe<Integer> deleteWord(long id);
 
 }

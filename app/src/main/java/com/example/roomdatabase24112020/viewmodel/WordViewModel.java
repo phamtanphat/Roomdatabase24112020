@@ -121,7 +121,36 @@ public class WordViewModel extends AndroidViewModel {
                     }
                 });
     }
+    public void deleteWord(long id){
+        wordRespository.deleteWord(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MaybeObserver<Integer>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull Integer integer) {
+                        if (integer > 0){
+                            mutableStatusWords.setValue(DatabaseConstants.STATUS_DELETE_SUCCESS);
+                        }else{
+                            mutableError.setValue(new Throwable("Id không tồn tại"));
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        mutableError.setValue(new Throwable("Xóa dữ liệu thất bại"));
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
     public LiveData<Integer> getStatusQuery(){
         return mutableStatusWords;
