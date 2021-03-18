@@ -28,6 +28,7 @@ public class WordRespository {
     }
 
     public Single<List<WordEntity>> getWords(int page, int totalItems){
+        // Công thức tính row tiếp theo
         page = (page - 1) * totalItems;
         return wordDao.getWords(page , totalItems);
     }

@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Call method
-        wordViewModel.selectWords(1 , 1);
+        wordViewModel.selectWords(2 , 1);
 //        wordViewModel.insertWord(new WordEntity("Two","Hai",false));
 
 
